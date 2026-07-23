@@ -16,6 +16,11 @@ export function AboutScreen({ onBackHome }: AboutScreenProps) {
       <p style={{ fontSize: "1.05rem", color: "var(--color-text-muted)" }}>
         Accessibility Testing Challenge — an interactive accessibility QA game.
       </p>
+      <p style={{ margin: 0 }}>
+        Designed and built by C. Lin as an interactive accessibility education project for QA
+        professionals, game developers, designers, and anyone interested in more inclusive digital
+        experiences.
+      </p>
 
       <section className="stack-sm">
         <h2 style={{ fontSize: "1.15rem" }}>Why this exists</h2>
@@ -40,13 +45,22 @@ export function AboutScreen({ onBackHome }: AboutScreenProps) {
       </section>
 
       <section className="stack-sm">
-        <h2 style={{ fontSize: "1.15rem" }}>Limitations</h2>
+        <h2 style={{ fontSize: "1.15rem" }}>What this is — and isn't</h2>
         <p>
           These activities introduce selected interaction and testing
-          concepts. They are educational tools and do not represent the
-          full range of disability experiences or replace research with
-          disabled users and accessibility specialists.
+          concepts through simplified simulations. Simulations cannot
+          represent the full range of disability experiences, and
+          accessibility involves a wide range of permanent, temporary,
+          situational, and changing needs.
         </p>
+        <ul>
+          <li>Educational experience.</li>
+          <li>Does not certify accessibility compliance.</li>
+          <li>Does not replace WCAG reviews.</li>
+          <li>Does not replace assistive-technology testing.</li>
+          <li>Does not replace dedicated accessibility test cases.</li>
+          <li>Does not replace research with disabled people.</li>
+        </ul>
       </section>
     </div>
   );

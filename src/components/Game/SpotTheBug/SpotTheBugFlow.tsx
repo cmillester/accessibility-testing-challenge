@@ -6,6 +6,7 @@ import { useChallengeState } from "../../../context/ChallengeStateContext";
 import { InfoButton } from "../../common/InfoButton";
 import { ConfirmExitDialog } from "../../common/ConfirmExitDialog";
 import { CarryThisLensForwardCard } from "../../common/CarryThisLensForwardCard";
+import { RoundStatusBar } from "../../common/RoundStatusBar";
 
 const SCENARIOS_PER_RUN = 8;
 const TICK_MS = 100;
@@ -200,32 +201,20 @@ export function SpotTheBugFlow({
           <h1 style={{ margin: 0, fontSize: "1.15rem" }}>Spot the Bug</h1>
           <InfoButton label="Spot the Bug" text={SPOT_THE_BUG_ABOUT_TEXT} />
         </div>
-        <span className="text-muted" style={{ fontSize: "0.85rem" }}>
-          {index + 1} of {order.length}
-        </span>
       </div>
 
       {/* Not role="status": this redraws every 100ms while timing is active,
           and a live region that busy would announce constantly. Only the
           deliberate, discrete events (round start, correct/incorrect, etc.)
           go through the shared LiveRegion above. */}
-      <div
-        className="card--sunken card"
-        style={{
-          display: "flex",
-          flexWrap: "wrap",
-          gap: "var(--space-4)",
-          justifyContent: "space-between",
-          padding: "var(--space-3) var(--space-5)",
+      <RoundStatusBar
+        stageStat={{ label: "Scenario", value: `${index + 1}/${order.length}` }}
+        stageLabel={`Scenario ${index + 1} of ${order.length}`}
+        primary={{
+          label: `Active time${answered ? " (frozen)" : ""}`,
+          value: `${(elapsedMs / 1000).toFixed(1)}s`,
         }}
-      >
-        <div style={{ textAlign: "center" }}>
-          <div style={{ fontWeight: 700 }}>{(elapsedMs / 1000).toFixed(1)}s</div>
-          <div className="text-muted" style={{ fontSize: "0.72rem" }}>
-            Active time {answered ? "(frozen)" : ""}
-          </div>
-        </div>
-      </div>
+      />
 
       <BugScenarioCard
         key={scenario.id}

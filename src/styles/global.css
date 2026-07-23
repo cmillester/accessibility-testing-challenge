@@ -1,5 +1,5 @@
 /* ==========================================================================
-   Accessibility Testing Challenge â€” global design tokens & base styles
+   Accessibility Testing Challenge — global design tokens & base styles
    Visual direction: warm off-white background, dark charcoal type,
    muted teal accents, editorial layout, subtle borders, generous spacing,
    minimal animation, high-contrast text, no flashing content.
@@ -7,13 +7,13 @@
 
 :root {
   /* --------------------------------------------------------------------
-     Design tokens â€” sourced from the Figma "Accessibility Testing
+     Design tokens — sourced from the Figma "Accessibility Testing
      Challenge" foundations sheet (Dev Mode / Inspect specimen export).
      Semantic names map 1:1 to Figma's named swatches; see the mapping
      table in the accompanying change report for the exact Figma label
      each token was read from. A few accent/border values were read
      visually from the specimen image rather than a live Figma connection
-     â€” those are flagged in the report as best-effort reads to confirm
+     — those are flagged in the report as best-effort reads to confirm
      against Dev Mode if this is ever re-synced.
      -------------------------------------------------------------------- */
 
@@ -36,18 +36,18 @@
   /* Text & borders */
   --color-text-heading: #27292c; /* Charcoal Title */
   --color-text-body: #27292c;    /* Charcoal Title (same tone used for headings and primary body text) */
-  --color-text-muted: #5f6388;   /* Slate Body â€” this is the *muted/secondary* text tone in the Figma sheet */
+  --color-text-muted: #5f6388;   /* Slate Body — this is the *muted/secondary* text tone in the Figma sheet */
   --color-border: #dedbca;       /* Warm Border */
   --color-border-light: #e7e2da; /* Light Border */
   --color-silver-muted: #b9b9b7; /* Silver Muted */
   --color-pure-white: #ffffff;   /* Pure White */
 
   /* Interaction & evaluation status */
-  /* Correct / Pass â€” the original Figma value (#228658) only reaches
+  /* Correct / Pass — the original Figma value (#228658) only reaches
      4.10:1 on --color-success-bg and 4.22:1 on the warm canvas, both
      below the 4.5:1 AA text minimum (it does pass at 4.55:1 on plain
      white). Darkened to #1f7a50, which verifies at 4.79:1 on
-     --color-success-bg, 4.93:1 on the canvas, and 5.31:1 on white â€”
+     --color-success-bg, 4.93:1 on the canvas, and 5.31:1 on white —
      AA-compliant everywhere the token is used as text, while staying the
      same hue/family as the original Figma green. --color-success-bg is
      unchanged. */
@@ -60,7 +60,7 @@
   /* ---- Back-compat aliases -------------------------------------------
      Every existing component rule below has been moved onto the semantic
      names above. These aliases exist only as a safety net in case any
-     reference was missed â€” nothing should still resolve through them. */
+     reference was missed — nothing should still resolve through them. */
   --color-bg: var(--color-canvas);
   --color-bg-raised: var(--color-surface);
   --color-bg-sunken: var(--color-surface-subtle);
@@ -79,7 +79,7 @@
   --font-heading: "Iowan Old Style", "Palatino Linotype", Georgia, "Times New Roman", serif;
   --font-body: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 
-  /* Spacing scale â€” exact Figma steps (4 through 120px) */
+  /* Spacing scale — exact Figma steps (4 through 120px) */
   --space-4: 0.25rem;
   --space-8: 0.5rem;
   --space-12: 0.75rem;
@@ -94,7 +94,7 @@
   --space-96: 6rem;
   --space-120: 7.5rem;
 
-  /* Radius scale â€” 8/12/16/24 plus a full pill, applied by role (see the
+  /* Radius scale — 8/12/16/24 plus a full pill, applied by role (see the
      component sections below for which tier each surface uses). */
   --radius-8: 8px;
   --radius-12: 12px;
@@ -113,7 +113,7 @@
   --shadow-card: 0 1px 3px rgba(39, 41, 44, 0.08), 0 1px 2px rgba(39, 41, 44, 0.06);
   --shadow-elevated: 0 12px 32px rgba(21, 78, 86, 0.18), 0 4px 12px rgba(21, 78, 86, 0.12);
 
-  /* Keyboard focus ring â€” pronounced teal outline with a visible outer
+  /* Keyboard focus ring — pronounced teal outline with a visible outer
      gap, never clipped (every scrollable/overflow:hidden ancestor of a
      focusable control is checked to make sure the ring isn't cut off). */
   --focus-ring: 3px solid var(--color-primary);
@@ -146,10 +146,10 @@ body {
   overflow-x: hidden;
 }
 
-/* Typography scale â€” exact Figma desktop endpoints (Display Large through
+/* Typography scale — exact Figma desktop endpoints (Display Large through
    Caption). Figma's sheet only specified single (desktop) sizes for each
    step, not separate mobile values, so the clamp() floors below are a
-   fluid-scaling choice on my part â€” tight enough to keep headings from
+   fluid-scaling choice on my part — tight enough to keep headings from
    feeling oversized on a 320px viewport, never below what's needed to
    avoid single-word orphans at common widths, and never below the 16px
    floor for anything meant as continuous-reading body copy. */
@@ -161,34 +161,34 @@ h1, h2, h3, h4 {
   font-weight: 600;
 }
 
-/* Display Large â€” Lora Bold 56px/64px */
+/* Display Large — Lora Bold 56px/64px */
 .type-display-large { font-family: var(--font-heading); font-weight: 700; font-size: clamp(2.25rem, 1.7rem + 2.5vw, 3.5rem); line-height: 1.14; }
-/* Display Medium â€” Lora Bold 44px/52px */
+/* Display Medium — Lora Bold 44px/52px */
 .type-display-medium { font-family: var(--font-heading); font-weight: 700; font-size: clamp(1.9rem, 1.5rem + 1.8vw, 2.75rem); line-height: 1.18; }
 
-h1, .type-h1 { font-size: clamp(1.75rem, 1.45rem + 1.4vw, 2.25rem); line-height: 1.22; } /* H1 â€” Lora Bold 36px/44px */
-h2, .type-h2 { font-size: clamp(1.4rem, 1.2rem + 0.9vw, 1.75rem); line-height: 1.28; font-weight: 600; } /* H2 â€” Lora SemiBold 28px/36px */
-h3, .type-h3 { font-size: clamp(1.2rem, 1.1rem + 0.4vw, 1.375rem); line-height: 1.32; font-weight: 600; } /* H3 â€” Lora SemiBold 22px/30px */
-h4, .type-h4 { font-size: 1.125rem; line-height: 1.4; font-weight: 500; } /* H4 â€” Lora Medium 18px/26px */
+h1, .type-h1 { font-size: clamp(1.75rem, 1.45rem + 1.4vw, 2.25rem); line-height: 1.22; } /* H1 — Lora Bold 36px/44px */
+h2, .type-h2 { font-size: clamp(1.4rem, 1.2rem + 0.9vw, 1.75rem); line-height: 1.28; font-weight: 600; } /* H2 — Lora SemiBold 28px/36px */
+h3, .type-h3 { font-size: clamp(1.2rem, 1.1rem + 0.4vw, 1.375rem); line-height: 1.32; font-weight: 600; } /* H3 — Lora SemiBold 22px/30px */
+h4, .type-h4 { font-size: 1.125rem; line-height: 1.4; font-weight: 500; } /* H4 — Lora Medium 18px/26px */
 
 p { margin: 0 0 var(--space-16); }
 
-/* Body Large â€” Inter Regular 18px/28px */
+/* Body Large — Inter Regular 18px/28px */
 .type-body-large { font-family: var(--font-body); font-size: 1.125rem; line-height: 1.55; }
-/* Body Default â€” Inter Regular 16px/24px (this is the page's base font-size/line-height already) */
+/* Body Default — Inter Regular 16px/24px (this is the page's base font-size/line-height already) */
 .type-body-default { font-family: var(--font-body); font-size: 1rem; line-height: 1.5; }
-/* Body Small â€” Inter Regular 14px/20px. Supporting annotations only â€”
+/* Body Small — Inter Regular 14px/20px. Supporting annotations only —
    never used for continuous-reading paragraphs. */
 .type-body-small { font-family: var(--font-body); font-size: 0.875rem; line-height: 1.43; }
-/* Label Large â€” Inter SemiBold 16px/24px */
+/* Label Large — Inter SemiBold 16px/24px */
 .type-label-large { font-family: var(--font-body); font-weight: 600; font-size: 1rem; line-height: 1.5; }
-/* Label Default â€” Inter SemiBold 14px/20px */
+/* Label Default — Inter SemiBold 14px/20px */
 .type-label-default { font-family: var(--font-body); font-weight: 600; font-size: 0.875rem; line-height: 1.43; }
-/* Eyebrow â€” Inter SemiBold 13px/16px, uppercase, tracked */
+/* Eyebrow — Inter SemiBold 13px/16px, uppercase, tracked */
 .type-eyebrow { font-family: var(--font-body); font-weight: 600; font-size: 0.8125rem; line-height: 1.23; letter-spacing: 0.15em; text-transform: uppercase; }
-/* Button â€” Inter SemiBold 16px/24px (matches .btn already) */
+/* Button — Inter SemiBold 16px/24px (matches .btn already) */
 .type-button { font-family: var(--font-body); font-weight: 600; font-size: 1rem; line-height: 1.5; }
-/* Caption â€” Inter Regular 13px/18px */
+/* Caption — Inter Regular 13px/18px */
 .type-caption { font-family: var(--font-body); font-size: 0.8125rem; line-height: 1.38; color: var(--color-text-muted); }
 
 a {
@@ -256,7 +256,7 @@ li { margin-bottom: var(--space-8); }
   .grid--3 { grid-template-columns: repeat(3, 1fr); }
 }
 
-/* Compact "What you'll practice" items â€” deliberately not full cards, so
+/* Compact "What you'll practice" items — deliberately not full cards, so
    the section reads as a light, scannable list rather than another wall of
    bordered boxes right after the two game-choice cards. */
 .practice-item {
@@ -264,7 +264,7 @@ li { margin-bottom: var(--space-8); }
   padding-left: var(--space-16);
 }
 
-/* Game-choice cards â€” equal height (grid's default align-items: stretch
+/* Game-choice cards — equal height (grid's default align-items: stretch
    already makes both cards the same height; flex-column plus margin-top:
    auto on the CTA is what pins the button to the bottom of whichever card
    is taller). */
@@ -286,7 +286,7 @@ li { margin-bottom: var(--space-8); }
   border-radius: var(--radius-8);
 }
 
-/* Project-scope strip â€” a quiet, glanceable summary row beneath the game
+/* Project-scope strip — a quiet, glanceable summary row beneath the game
    cards. */
 .scope-strip {
   display: flex;
@@ -321,7 +321,7 @@ li { margin-bottom: var(--space-8); }
   }
 }
 
-/* Simulation-context callout â€” visually quiet and secondary, on purpose. */
+/* Simulation-context callout — visually quiet and secondary, on purpose. */
 .simulation-note {
   margin: 0;
   padding-left: var(--space-16);
@@ -425,11 +425,11 @@ li { margin-bottom: var(--space-8); }
   gap: var(--space-12);
 }
 
-/* Mobile control layout â€” primary Start/Continue/Next/completion CTAs
+/* Mobile control layout — primary Start/Continue/Next/completion CTAs
    become full width so they're unmistakably the main action; secondary
    controls (Pause, Restart, Skip, Exit, etc.) wrap into a tidy two-column
    layout. flex-grow keeps a lone leftover secondary control from looking
-   stranded â€” it simply fills the rest of its row instead of sitting alone
+   stranded — it simply fills the rest of its row instead of sitting alone
    at half width. DOM order is untouched, so tab order and control order
    stay exactly as before. */
 @media (max-width: 480px) {
@@ -520,7 +520,7 @@ li { margin-bottom: var(--space-8); }
 
 .tag--demo {
   /* The raw Autumn Ochre token only reaches ~2.1:1 as text against its own
-     tint background â€” below the 4.5:1 AA text minimum â€” so the ochre tone
+     tint background — below the 4.5:1 AA text minimum — so the ochre tone
      is kept for the border (a decorative accent) while the text itself
      uses the high-contrast heading color. */
   background: var(--color-caution-tint);
@@ -613,7 +613,7 @@ li { margin-bottom: var(--space-8); }
   min-height: 44px;
 }
 
-/* Current-page indicator â€” was previously conveyed only via aria-current
+/* Current-page indicator — was previously conveyed only via aria-current
    to assistive tech, with no visual counterpart. Color is never the only
    signal: weight and the underline both change too. */
 .site-header__nav-link[aria-current="page"] {
@@ -624,7 +624,7 @@ li { margin-bottom: var(--space-8); }
 
 /* A dedicated mobile breakpoint, not just flex-wrap on the outer row: below
    this width the title always gets its own row, and the nav row underneath
-   always has the full container width available to wrap safely â€” this is
+   always has the full container width available to wrap safely — this is
    what actually prevents horizontal scrolling at 320-430px, rather than an
    organic (and less predictable) wrap point. */
 @media (max-width: 600px) {
@@ -669,7 +669,7 @@ li { margin-bottom: var(--space-8); }
 }
 
 /* Calm, slow, non-flashing pulse used only for the "reduce motion" repair
-   demo. Well under one cycle per second â€” never used as a required or
+   demo. Well under one cycle per second — never used as a required or
    time-pressured effect, and fully neutralized by the reduced-motion
    rules below. */
 @keyframes atl-pulse {
@@ -677,7 +677,7 @@ li { margin-bottom: var(--space-8); }
   50% { transform: scale(1.15); opacity: 0.75; }
 }
 
-/* A single, brief (300ms) pop for score feedback â€” not a loop, not
+/* A single, brief (300ms) pop for score feedback — not a loop, not
    flashing, and fully neutralized by the reduced-motion rules below. */
 @keyframes atl-pop {
   0% { transform: scale(0.85); opacity: 0; }
@@ -709,7 +709,7 @@ li { margin-bottom: var(--space-8); }
    Used by Spot the Accessibility Bug's realistic mini-interfaces: an
    interactive, keyboard-focusable region with no visible button chrome,
    so the real rendered content (real small pale text, a real color-only
-   dot, a real crowded button) is what the player inspects â€” not a label
+   dot, a real crowded button) is what the player inspects — not a label
    describing the flaw in words. Focus is still fully visible. */
 .bug-hotspot {
   all: unset;
@@ -917,7 +917,7 @@ li { margin-bottom: var(--space-8); }
 }
 
 /* Game arena ------------------------------------------------------------------
-   The Accessibility Challenge's target area â€” one real target (plus decoys
+   The Accessibility Challenge's target area — one real target (plus decoys
    only in Color Vision mode, or five boxes in Switch Access) inside a
    fixed-size, position-relative arena. Ported to match the original
    prototype's mechanics: the arena filter and target parameters are what
@@ -935,7 +935,7 @@ li { margin-bottom: var(--space-8); }
 
 /* Switch Access needs its own arena sizing. Five 44px-tall controls can
    wrap onto as many as five rows at very narrow widths (80-128px content,
-   320px viewports, 400% zoom) â€” five rows comfortably exceed the fixed
+   320px viewports, 400% zoom) — five rows comfortably exceed the fixed
    260px height every other mode uses. A fixed height plus overflow:hidden
    would silently clip whichever rows don't fit. This variant sizes to its
    wrapped content instead, keeping the original 260px only as a floor
@@ -1002,10 +1002,10 @@ li { margin-bottom: var(--space-8); }
   justify-content: center;
   font-weight: 700;
   /* The Figma "Paused State" token (#c09c56) only reaches ~2.4:1 against
-     the canvas background â€” too low for readable text (AA needs 4.5:1
+     the canvas background — too low for readable text (AA needs 4.5:1
      for text). Using the high-contrast heading color here instead so the
      word "Paused" stays legible; color is also never the only pause
-     signal â€” the arena also dims to 60% opacity while paused. */
+     signal — the arena also dims to 60% opacity while paused. */
   color: var(--color-text-heading);
   pointer-events: none;
 }
@@ -1143,7 +1143,7 @@ li { margin-bottom: var(--space-8); }
 
 /* At narrow widths, a popover anchored left:0 to a trigger near the right
    edge of the screen would run past the viewport. The panel is instead
-   presented as a small centered, viewport-clamped dialog with a backdrop â€”
+   presented as a small centered, viewport-clamped dialog with a backdrop —
    same content, same Escape/close/focus-return behavior, just positioned
    so it can never overflow the screen. */
 .info-popover-backdrop {

@@ -15,56 +15,20 @@ const NAV_ITEMS: { id: ScreenId; label: string }[] = [
 export function Header({ onNavigate, currentScreen }: HeaderProps) {
   return (
     <header className="site-header">
-      <div className="container" style={{ paddingBlock: "var(--space-4)" }}>
-        <div
-          style={{
-            display: "flex",
-            flexWrap: "wrap",
-            gap: "var(--space-4)",
-            alignItems: "center",
-            justifyContent: "space-between",
-          }}
-        >
-          <button
-            type="button"
-            onClick={() => onNavigate("home")}
-            style={{
-              background: "none",
-              border: "none",
-              padding: 0,
-              cursor: "pointer",
-              textAlign: "left",
-              minHeight: "auto",
-            }}
-          >
-            <span
-              style={{
-                fontFamily: "var(--font-heading)",
-                fontWeight: 700,
-                fontSize: "1.15rem",
-                color: "var(--color-text)",
-              }}
-            >
-              Accessibility Testing Challenge
-            </span>
+      <div className="container site-header__inner">
+        <div className="site-header__row">
+          <button type="button" className="site-header__title" onClick={() => onNavigate("home")}>
+            <span>Accessibility Testing Challenge</span>
           </button>
-          <nav aria-label="Primary">
-            <ul
-              style={{
-                display: "flex",
-                gap: "var(--space-5)",
-                listStyle: "none",
-                margin: 0,
-                padding: 0,
-              }}
-            >
+          <nav aria-label="Primary" className="site-header__nav">
+            <ul className="site-header__nav-list">
               {NAV_ITEMS.map((item) => (
-                <li key={item.id} style={{ margin: 0 }}>
+                <li key={item.id}>
                   <button
                     type="button"
                     onClick={() => onNavigate(item.id)}
                     aria-current={currentScreen === item.id ? "page" : undefined}
-                    className="btn-tertiary"
+                    className="btn-tertiary site-header__nav-link"
                     style={{
                       fontWeight: currentScreen === item.id ? 700 : 500,
                       textDecoration: currentScreen === item.id ? "underline" : "none",

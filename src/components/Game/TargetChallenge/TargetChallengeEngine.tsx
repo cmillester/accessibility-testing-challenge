@@ -4,6 +4,7 @@ import { LiveRegion } from "../../common/LiveRegion";
 import { useAnnouncer } from "../../../hooks/useAnnouncer";
 import { InfoButton } from "../../common/InfoButton";
 import { ConfirmExitDialog } from "../../common/ConfirmExitDialog";
+import { RoundStatusBar } from "../../common/RoundStatusBar";
 
 // Ported, with behavioral parity, from the original accessibility_challenge.html
 // prototype: one real target (plus decoys only in Color Vision mode) placed
@@ -334,20 +335,15 @@ export function TargetChallengeEngine({
               constantly. Deliberate events (round start, target N of 8,
               paused/resumed, finished) go through the LiveRegion above
               instead. */}
-          <div
-            className="card--sunken card"
-            style={{
-              display: "flex",
-              flexWrap: "wrap",
-              gap: "var(--space-4)",
-              justifyContent: "space-between",
-              padding: "var(--space-3) var(--space-5)",
+          <RoundStatusBar
+            stageStat={{
+              label: "Round",
+              value: `${Math.min(targetNumber, TOTAL_TARGETS)}/${TOTAL_TARGETS}`,
             }}
-          >
-            <Stat label="Round" value={`${Math.min(targetNumber, TOTAL_TARGETS)}/${TOTAL_TARGETS}`} />
-            <Stat label="Time" value={`${(elapsedMs / 1000).toFixed(1)}s`} />
-            <Stat label="Misses" value={String(misses)} />
-          </div>
+            stageLabel={`Round ${Math.min(targetNumber, TOTAL_TARGETS)} of ${TOTAL_TARGETS}`}
+            primary={{ label: "Time", value: `${(elapsedMs / 1000).toFixed(1)}s` }}
+            secondary={[{ label: "Misses", value: String(misses) }]}
+          />
 
           <p style={{ margin: 0, fontWeight: 600 }}>{mode.instructions}</p>
 
@@ -440,17 +436,6 @@ export function TargetChallengeEngine({
           </div>
         </div>
       )}
-    </div>
-  );
-}
-
-function Stat({ label, value }: { label: string; value: string }) {
-  return (
-    <div style={{ textAlign: "center" }}>
-      <div style={{ fontWeight: 700 }}>{value}</div>
-      <div className="text-muted" style={{ fontSize: "0.72rem" }}>
-        {label}
-      </div>
     </div>
   );
 }
