@@ -1,51 +1,122 @@
 /* ==========================================================================
-   Accessibility Testing Challenge — global design tokens & base styles
+   Accessibility Testing Challenge â€” global design tokens & base styles
    Visual direction: warm off-white background, dark charcoal type,
    muted teal accents, editorial layout, subtle borders, generous spacing,
    minimal animation, high-contrast text, no flashing content.
    ========================================================================== */
 
 :root {
-  --color-bg: #faf7f1;
-  --color-bg-raised: #ffffff;
-  --color-bg-sunken: #f2ede3;
-  --color-text: #2a2825;
-  --color-text-muted: #57534a;
-  --color-border: #ddd5c6;
-  --color-border-strong: #b9ae99;
+  /* --------------------------------------------------------------------
+     Design tokens â€” sourced from the Figma "Accessibility Testing
+     Challenge" foundations sheet (Dev Mode / Inspect specimen export).
+     Semantic names map 1:1 to Figma's named swatches; see the mapping
+     table in the accompanying change report for the exact Figma label
+     each token was read from. A few accent/border values were read
+     visually from the specimen image rather than a live Figma connection
+     â€” those are flagged in the report as best-effort reads to confirm
+     against Dev Mode if this is ever re-synced.
+     -------------------------------------------------------------------- */
 
-  --color-teal: #2f6b67;
-  --color-teal-dark: #1f4b48;
-  --color-teal-tint: #e3edec;
+  /* Backgrounds */
+  --color-canvas: #f9f6f2;         /* Warm Canvas */
+  --color-surface: #ffffff;        /* White Base */
+  --color-surface-subtle: #f9f3f7; /* Alabaster Tint */
 
-  --color-accent-warm: #a25c33;
-  --color-success: #2f6b45;
-  --color-success-tint: #e4efe6;
-  --color-caution: #8a5a12;
+  /* Primary teal */
+  --color-primary: #154e56;        /* Teal Deep */
+  --color-primary-hover: #226770;  /* Teal Mid */
+  --color-primary-tint: #e7f3f4;   /* Teal Light Tint */
+
+  /* Accents */
+  --color-accent-blue: #4d709f;      /* Chambray Blue */
+  --color-accent-terracotta: #c97c57; /* Clay Terracotta */
+  --color-accent-ochre: #c59c56;      /* Autumn Ochre */
+  --color-accent-plum: #7f4a75;       /* Deep Plum */
+
+  /* Text & borders */
+  --color-text-heading: #27292c; /* Charcoal Title */
+  --color-text-body: #27292c;    /* Charcoal Title (same tone used for headings and primary body text) */
+  --color-text-muted: #5f6388;   /* Slate Body â€” this is the *muted/secondary* text tone in the Figma sheet */
+  --color-border: #dedbca;       /* Warm Border */
+  --color-border-light: #e7e2da; /* Light Border */
+  --color-silver-muted: #b9b9b7; /* Silver Muted */
+  --color-pure-white: #ffffff;   /* Pure White */
+
+  /* Interaction & evaluation status */
+  /* Correct / Pass â€” the original Figma value (#228658) only reaches
+     4.10:1 on --color-success-bg and 4.22:1 on the warm canvas, both
+     below the 4.5:1 AA text minimum (it does pass at 4.55:1 on plain
+     white). Darkened to #1f7a50, which verifies at 4.79:1 on
+     --color-success-bg, 4.93:1 on the canvas, and 5.31:1 on white â€”
+     AA-compliant everywhere the token is used as text, while staying the
+     same hue/family as the original Figma green. --color-success-bg is
+     unchanged. */
+  --color-success: #1f7a50;    /* Correct / Pass */
+  --color-success-bg: #e7f7ee; /* Correct Bg */
+  --color-error: #c13026;      /* Incorrect / Fail */
+  --color-error-bg: #f9eae8;   /* Incorrect Bg */
+  --color-paused: #c09c56;     /* Paused State */
+
+  /* ---- Back-compat aliases -------------------------------------------
+     Every existing component rule below has been moved onto the semantic
+     names above. These aliases exist only as a safety net in case any
+     reference was missed â€” nothing should still resolve through them. */
+  --color-bg: var(--color-canvas);
+  --color-bg-raised: var(--color-surface);
+  --color-bg-sunken: var(--color-surface-subtle);
+  --color-text: var(--color-text-body);
+  --color-border-strong: var(--color-border);
+  --color-teal: var(--color-primary-hover);
+  --color-teal-dark: var(--color-primary);
+  --color-teal-tint: var(--color-primary-tint);
+  --color-accent-warm: var(--color-accent-terracotta);
+  --color-success-tint: var(--color-success-bg);
+  --color-caution: var(--color-accent-ochre);
   --color-caution-tint: #f4ead6;
-  --color-danger: #8a3b2c;
-  --color-danger-tint: #f3e4df;
+  --color-danger: var(--color-error);
+  --color-danger-tint: var(--color-error-bg);
 
   --font-heading: "Iowan Old Style", "Palatino Linotype", Georgia, "Times New Roman", serif;
   --font-body: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 
-  --space-1: 0.25rem;
-  --space-2: 0.5rem;
-  --space-3: 0.75rem;
-  --space-4: 1rem;
-  --space-5: 1.5rem;
-  --space-6: 2rem;
-  --space-7: 3rem;
-  --space-8: 4.5rem;
+  /* Spacing scale â€” exact Figma steps (4 through 120px) */
+  --space-4: 0.25rem;
+  --space-8: 0.5rem;
+  --space-12: 0.75rem;
+  --space-16: 1rem;
+  --space-20: 1.25rem;
+  --space-24: 1.5rem;
+  --space-32: 2rem;
+  --space-40: 2.5rem;
+  --space-48: 3rem;
+  --space-64: 4rem;
+  --space-80: 5rem;
+  --space-96: 6rem;
+  --space-120: 7.5rem;
 
-  --radius-sm: 4px;
-  --radius-md: 8px;
-  --radius-lg: 14px;
+  /* Radius scale â€” 8/12/16/24 plus a full pill, applied by role (see the
+     component sections below for which tier each surface uses). */
+  --radius-8: 8px;
+  --radius-12: 12px;
+  --radius-16: 16px;
+  --radius-24: 24px;
+  --radius-pill: 999px;
+  /* Back-compat aliases */
+  --radius-sm: var(--radius-8);
+  --radius-md: var(--radius-8);
+  --radius-lg: var(--radius-16);
 
   --max-width: 72rem;
   --max-width-prose: 42rem;
 
-  --focus-ring: 3px solid var(--color-teal-dark);
+  /* Elevation */
+  --shadow-card: 0 1px 3px rgba(39, 41, 44, 0.08), 0 1px 2px rgba(39, 41, 44, 0.06);
+  --shadow-elevated: 0 12px 32px rgba(21, 78, 86, 0.18), 0 4px 12px rgba(21, 78, 86, 0.12);
+
+  /* Keyboard focus ring â€” pronounced teal outline with a visible outer
+     gap, never clipped (every scrollable/overflow:hidden ancestor of a
+     focusable control is checked to make sure the ring isn't cut off). */
+  --focus-ring: 3px solid var(--color-primary);
   --focus-ring-offset: 3px;
 
   --duration-fast: 120ms;
@@ -66,36 +137,67 @@ html {
 
 body {
   margin: 0;
-  background: var(--color-bg);
-  color: var(--color-text);
+  background: var(--color-canvas);
+  color: var(--color-text-body);
   font-family: var(--font-body);
   font-size: 1rem;
   line-height: 1.6;
   min-height: 100vh;
+  overflow-x: hidden;
 }
 
+/* Typography scale â€” exact Figma desktop endpoints (Display Large through
+   Caption). Figma's sheet only specified single (desktop) sizes for each
+   step, not separate mobile values, so the clamp() floors below are a
+   fluid-scaling choice on my part â€” tight enough to keep headings from
+   feeling oversized on a 320px viewport, never below what's needed to
+   avoid single-word orphans at common widths, and never below the 16px
+   floor for anything meant as continuous-reading body copy. */
 h1, h2, h3, h4 {
   font-family: var(--font-heading);
-  color: var(--color-text);
+  color: var(--color-text-heading);
   line-height: 1.25;
-  margin: 0 0 var(--space-4);
+  margin: 0 0 var(--space-16);
   font-weight: 600;
 }
 
-h1 { font-size: clamp(1.9rem, 3.2vw, 2.75rem); }
-h2 { font-size: clamp(1.5rem, 2.4vw, 2rem); }
-h3 { font-size: 1.25rem; }
-h4 { font-size: 1.05rem; }
+/* Display Large â€” Lora Bold 56px/64px */
+.type-display-large { font-family: var(--font-heading); font-weight: 700; font-size: clamp(2.25rem, 1.7rem + 2.5vw, 3.5rem); line-height: 1.14; }
+/* Display Medium â€” Lora Bold 44px/52px */
+.type-display-medium { font-family: var(--font-heading); font-weight: 700; font-size: clamp(1.9rem, 1.5rem + 1.8vw, 2.75rem); line-height: 1.18; }
 
-p { margin: 0 0 var(--space-4); }
+h1, .type-h1 { font-size: clamp(1.75rem, 1.45rem + 1.4vw, 2.25rem); line-height: 1.22; } /* H1 â€” Lora Bold 36px/44px */
+h2, .type-h2 { font-size: clamp(1.4rem, 1.2rem + 0.9vw, 1.75rem); line-height: 1.28; font-weight: 600; } /* H2 â€” Lora SemiBold 28px/36px */
+h3, .type-h3 { font-size: clamp(1.2rem, 1.1rem + 0.4vw, 1.375rem); line-height: 1.32; font-weight: 600; } /* H3 â€” Lora SemiBold 22px/30px */
+h4, .type-h4 { font-size: 1.125rem; line-height: 1.4; font-weight: 500; } /* H4 â€” Lora Medium 18px/26px */
+
+p { margin: 0 0 var(--space-16); }
+
+/* Body Large â€” Inter Regular 18px/28px */
+.type-body-large { font-family: var(--font-body); font-size: 1.125rem; line-height: 1.55; }
+/* Body Default â€” Inter Regular 16px/24px (this is the page's base font-size/line-height already) */
+.type-body-default { font-family: var(--font-body); font-size: 1rem; line-height: 1.5; }
+/* Body Small â€” Inter Regular 14px/20px. Supporting annotations only â€”
+   never used for continuous-reading paragraphs. */
+.type-body-small { font-family: var(--font-body); font-size: 0.875rem; line-height: 1.43; }
+/* Label Large â€” Inter SemiBold 16px/24px */
+.type-label-large { font-family: var(--font-body); font-weight: 600; font-size: 1rem; line-height: 1.5; }
+/* Label Default â€” Inter SemiBold 14px/20px */
+.type-label-default { font-family: var(--font-body); font-weight: 600; font-size: 0.875rem; line-height: 1.43; }
+/* Eyebrow â€” Inter SemiBold 13px/16px, uppercase, tracked */
+.type-eyebrow { font-family: var(--font-body); font-weight: 600; font-size: 0.8125rem; line-height: 1.23; letter-spacing: 0.15em; text-transform: uppercase; }
+/* Button â€” Inter SemiBold 16px/24px (matches .btn already) */
+.type-button { font-family: var(--font-body); font-weight: 600; font-size: 1rem; line-height: 1.5; }
+/* Caption â€” Inter Regular 13px/18px */
+.type-caption { font-family: var(--font-body); font-size: 0.8125rem; line-height: 1.38; color: var(--color-text-muted); }
 
 a {
-  color: var(--color-teal-dark);
+  color: var(--color-primary);
   text-decoration: underline;
   text-underline-offset: 2px;
 }
 
-a:hover { color: var(--color-teal); }
+a:hover { color: var(--color-primary-hover); }
 
 img, svg { max-width: 100%; display: block; }
 
@@ -106,14 +208,14 @@ button, input, select, textarea {
 }
 
 ul, ol { padding-left: 1.4rem; }
-li { margin-bottom: var(--space-2); }
+li { margin-bottom: var(--space-8); }
 
 /* Layout ------------------------------------------------------------------ */
 .container {
   width: 100%;
   max-width: var(--max-width);
   margin-inline: auto;
-  padding-inline: var(--space-5);
+  padding-inline: var(--space-24);
 }
 
 .prose {
@@ -121,31 +223,111 @@ li { margin-bottom: var(--space-2); }
 }
 
 .stack > * + * {
-  margin-top: var(--space-5);
+  margin-top: var(--space-24);
 }
 
 .stack-sm > * + * {
-  margin-top: var(--space-3);
+  margin-top: var(--space-12);
 }
 
 .card {
-  background: var(--color-bg-raised);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-lg);
-  padding: var(--space-6);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-16);
+  padding: var(--space-32);
+  box-shadow: var(--shadow-card);
 }
 
 .card--sunken {
-  background: var(--color-bg-sunken);
+  background: var(--color-surface-subtle);
 }
 
 .grid {
   display: grid;
-  gap: var(--space-5);
+  gap: var(--space-24);
 }
 
 @media (min-width: 640px) {
   .grid--2 { grid-template-columns: repeat(2, 1fr); }
+  .grid--3 { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (min-width: 900px) {
+  .grid--3 { grid-template-columns: repeat(3, 1fr); }
+}
+
+/* Compact "What you'll practice" items â€” deliberately not full cards, so
+   the section reads as a light, scannable list rather than another wall of
+   bordered boxes right after the two game-choice cards. */
+.practice-item {
+  border-left: 3px solid var(--color-primary);
+  padding-left: var(--space-16);
+}
+
+/* Game-choice cards â€” equal height (grid's default align-items: stretch
+   already makes both cards the same height; flex-column plus margin-top:
+   auto on the CTA is what pins the button to the bottom of whichever card
+   is taller). */
+.game-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-16);
+}
+
+.game-card__body {
+  flex: 1 1 auto;
+}
+
+.game-card__cta {
+  margin-top: auto;
+}
+
+.card-preview {
+  border-radius: var(--radius-8);
+}
+
+/* Project-scope strip â€” a quiet, glanceable summary row beneath the game
+   cards. */
+.scope-strip {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-8) var(--space-32);
+  margin: 0;
+  padding: var(--space-16) 0;
+  list-style: none;
+  border-top: 1px solid var(--color-border-light);
+  border-bottom: 1px solid var(--color-border-light);
+}
+
+.scope-strip li {
+  margin: 0;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  white-space: nowrap;
+}
+
+@media (max-width: 480px) {
+  .scope-strip {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    justify-content: start;
+    gap: var(--space-12);
+    text-align: left;
+  }
+  .scope-strip li {
+    white-space: normal;
+  }
+}
+
+/* Simulation-context callout â€” visually quiet and secondary, on purpose. */
+.simulation-note {
+  margin: 0;
+  padding-left: var(--space-16);
+  border-left: 3px solid var(--color-border);
+  color: var(--color-text-muted);
+  font-size: 0.9rem;
 }
 
 /* Focus & keyboard access -------------------------------------------------- */
@@ -156,25 +338,25 @@ li { margin-bottom: var(--space-2); }
 :focus-visible {
   outline: var(--focus-ring);
   outline-offset: var(--focus-ring-offset);
-  border-radius: var(--radius-sm);
+  border-radius: var(--radius-8);
 }
 
 .skip-link {
   position: absolute;
-  left: var(--space-4);
+  left: var(--space-16);
   top: -3.5rem;
-  background: var(--color-teal-dark);
-  color: #fff;
-  padding: var(--space-3) var(--space-5);
-  border-radius: var(--radius-sm);
+  background: var(--color-primary);
+  color: var(--color-pure-white);
+  padding: var(--space-12) var(--space-24);
+  border-radius: var(--radius-8);
   z-index: 100;
   transition: top var(--duration-base) ease;
   text-decoration: none;
 }
 
 .skip-link:focus-visible {
-  top: var(--space-4);
-  outline: 3px solid #fff;
+  top: var(--space-16);
+  outline: 3px solid var(--color-pure-white);
   outline-offset: 2px;
 }
 
@@ -195,10 +377,10 @@ li { margin-bottom: var(--space-2); }
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: var(--space-2);
+  gap: var(--space-8);
   min-height: 48px;
-  padding: var(--space-3) var(--space-5);
-  border-radius: var(--radius-md);
+  padding: var(--space-12) var(--space-24);
+  border-radius: var(--radius-8);
   border: 1px solid transparent;
   font-weight: 600;
   cursor: pointer;
@@ -210,24 +392,26 @@ li { margin-bottom: var(--space-2); }
 .btn:active { transform: translateY(1px); }
 
 .btn-primary {
-  background: var(--color-teal-dark);
-  color: #fff;
+  background: var(--color-primary);
+  color: var(--color-pure-white);
 }
-.btn-primary:hover { background: var(--color-teal); }
+.btn-primary:hover { background: var(--color-primary-hover); }
 
 .btn-secondary {
   background: transparent;
-  border-color: var(--color-border-strong);
-  color: var(--color-text);
+  border-color: var(--color-border);
+  color: var(--color-text-body);
 }
-.btn-secondary:hover { border-color: var(--color-teal-dark); }
+.btn-secondary:hover { border-color: var(--color-primary); }
 
 .btn-tertiary {
   background: transparent;
-  color: var(--color-teal-dark);
+  color: var(--color-primary);
   text-decoration: underline;
-  min-height: auto;
-  padding: var(--space-2) var(--space-2);
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  padding: var(--space-8) var(--space-8);
 }
 
 .btn:disabled {
@@ -238,14 +422,31 @@ li { margin-bottom: var(--space-2); }
 .btn-row {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--space-3);
+  gap: var(--space-12);
+}
+
+/* Mobile control layout â€” primary Start/Continue/Next/completion CTAs
+   become full width so they're unmistakably the main action; secondary
+   controls (Pause, Restart, Skip, Exit, etc.) wrap into a tidy two-column
+   layout. flex-grow keeps a lone leftover secondary control from looking
+   stranded â€” it simply fills the rest of its row instead of sitting alone
+   at half width. DOM order is untouched, so tab order and control order
+   stay exactly as before. */
+@media (max-width: 480px) {
+  .btn-primary {
+    width: 100%;
+  }
+  .btn-row .btn-secondary,
+  .btn-row .btn-tertiary {
+    flex: 1 1 calc(50% - var(--space-12) / 2);
+  }
 }
 
 /* Form controls ------------------------------------------------------------ */
 .field {
   display: flex;
   flex-direction: column;
-  gap: var(--space-2);
+  gap: var(--space-8);
   max-width: 24rem;
 }
 
@@ -255,16 +456,17 @@ li { margin-bottom: var(--space-2); }
 
 .field input[type="text"] {
   min-height: 48px;
-  padding: var(--space-3);
-  border: 1px solid var(--color-border-strong);
-  border-radius: var(--radius-sm);
-  background: var(--color-bg-raised);
+  padding: var(--space-12);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-8);
+  background: var(--color-surface);
+  font-size: 1rem;
 }
 
 .choice-list {
   display: flex;
   flex-direction: column;
-  gap: var(--space-3);
+  gap: var(--space-12);
   list-style: none;
   padding: 0;
 }
@@ -272,66 +474,73 @@ li { margin-bottom: var(--space-2); }
 .choice-button {
   display: flex;
   align-items: flex-start;
-  gap: var(--space-3);
+  gap: var(--space-12);
   width: 100%;
   text-align: left;
   min-height: 48px;
-  padding: var(--space-4);
-  border: 1px solid var(--color-border-strong);
-  border-radius: var(--radius-md);
-  background: var(--color-bg-raised);
+  padding: var(--space-16);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-12);
+  background: var(--color-surface);
   cursor: pointer;
 }
 
-.choice-button:hover { border-color: var(--color-teal-dark); }
+.choice-button:hover { border-color: var(--color-primary); }
 
 .choice-button[aria-pressed="true"] {
-  border-color: var(--color-teal-dark);
-  background: var(--color-teal-tint);
+  border-color: var(--color-primary);
+  background: var(--color-primary-tint);
 }
 
 .choice-button.is-correct {
   border-color: var(--color-success);
-  background: var(--color-success-tint);
+  background: var(--color-success-bg);
 }
 
 .choice-button.is-incorrect {
-  border-color: var(--color-danger);
-  background: var(--color-danger-tint);
+  border-color: var(--color-error);
+  background: var(--color-error-bg);
 }
 
 /* Badges / tags -------------------------------------------------------------*/
+/* Doubles as the Figma "Eyebrow" style (Inter SemiBold 13px, uppercase,
+   tracked) wherever it's used as a small pill label. */
 .tag {
   display: inline-flex;
   align-items: center;
-  gap: var(--space-1);
-  font-size: 0.8rem;
+  gap: var(--space-4);
+  font-size: 0.8125rem;
   font-weight: 600;
-  padding: var(--space-1) var(--space-3);
-  border-radius: 999px;
-  border: 1px solid var(--color-border-strong);
-  background: var(--color-bg-sunken);
+  letter-spacing: 0.15em;
+  padding: var(--space-4) var(--space-12);
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--color-border);
+  background: var(--color-surface-subtle);
 }
 
 .tag--demo {
+  /* The raw Autumn Ochre token only reaches ~2.1:1 as text against its own
+     tint background â€” below the 4.5:1 AA text minimum â€” so the ochre tone
+     is kept for the border (a decorative accent) while the text itself
+     uses the high-contrast heading color. */
   background: var(--color-caution-tint);
-  border-color: var(--color-caution);
-  color: var(--color-caution);
+  border-color: var(--color-accent-ochre);
+  color: var(--color-text-heading);
 }
 
 /* Feedback panel ------------------------------------------------------------*/
 .feedback-panel {
-  border-left: 4px solid var(--color-teal-dark);
-  background: var(--color-teal-tint);
-  border-radius: var(--radius-md);
-  padding: var(--space-5);
+  border-left: 4px solid var(--color-primary);
+  background: var(--color-primary-tint);
+  border-radius: var(--radius-12);
+  padding: var(--space-24);
 }
 
 .feedback-panel h4 {
   text-transform: uppercase;
   letter-spacing: 0.04em;
   font-size: 0.85rem;
-  color: var(--color-teal-dark);
+  color: var(--color-primary);
   font-family: var(--font-body);
 }
 
@@ -339,33 +548,109 @@ li { margin-bottom: var(--space-2); }
 .progress-track {
   width: 100%;
   height: 10px;
-  border-radius: 999px;
-  background: var(--color-bg-sunken);
-  border: 1px solid var(--color-border);
+  border-radius: var(--radius-pill);
+  background: var(--color-surface-subtle);
+  border: 1px solid var(--color-border-light);
   overflow: hidden;
 }
 
 .progress-fill {
   height: 100%;
-  background: var(--color-teal-dark);
+  background: var(--color-primary);
   transition: width var(--duration-base) ease;
 }
 
 /* Nav / header ---------------------------------------------------------------*/
 .site-header {
-  border-bottom: 1px solid var(--color-border);
-  background: var(--color-bg);
+  border-bottom: 1px solid var(--color-border-light);
+  background: var(--color-canvas);
+}
+
+.site-header__inner {
+  padding-block: var(--space-16);
+}
+
+.site-header__row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-16);
+  align-items: center;
+  justify-content: space-between;
+}
+
+.site-header__title {
+  background: none;
+  border: none;
+  padding: var(--space-8) 0;
+  cursor: pointer;
+  text-align: left;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+}
+
+.site-header__title span {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 1.15rem;
+  color: var(--color-text-body);
+}
+
+.site-header__nav-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-8) var(--space-24);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.site-header__nav-list li {
+  margin: 0;
+}
+
+.site-header__nav-link {
+  min-height: 44px;
+}
+
+/* Current-page indicator â€” was previously conveyed only via aria-current
+   to assistive tech, with no visual counterpart. Color is never the only
+   signal: weight and the underline both change too. */
+.site-header__nav-link[aria-current="page"] {
+  color: var(--color-primary);
+  font-weight: 700;
+  text-decoration-thickness: 2px;
+}
+
+/* A dedicated mobile breakpoint, not just flex-wrap on the outer row: below
+   this width the title always gets its own row, and the nav row underneath
+   always has the full container width available to wrap safely â€” this is
+   what actually prevents horizontal scrolling at 320-430px, rather than an
+   organic (and less predictable) wrap point. */
+@media (max-width: 600px) {
+  .site-header__row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-8);
+  }
+  .site-header__nav {
+    width: 100%;
+  }
+  .site-header__nav-list {
+    width: 100%;
+    gap: var(--space-12) var(--space-16);
+  }
 }
 
 .site-footer {
-  border-top: 1px solid var(--color-border);
-  margin-top: var(--space-8);
+  border-top: 1px solid var(--color-border-light);
+  margin-top: var(--space-64);
 }
 
 .breadcrumb-nav {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--space-2);
+  gap: var(--space-8);
   align-items: center;
   font-size: 0.9rem;
   color: var(--color-text-muted);
@@ -376,14 +661,15 @@ li { margin-bottom: var(--space-2); }
 .text-center { text-align: center; }
 
 .notice-box {
-  border: 1px solid var(--color-border-strong);
-  background: var(--color-bg-sunken);
-  border-radius: var(--radius-lg);
-  padding: var(--space-6);
+  border: 1px solid var(--color-border);
+  background: var(--color-surface-subtle);
+  border-radius: var(--radius-16);
+  padding: var(--space-32);
+  box-shadow: var(--shadow-card);
 }
 
 /* Calm, slow, non-flashing pulse used only for the "reduce motion" repair
-   demo. Well under one cycle per second — never used as a required or
+   demo. Well under one cycle per second â€” never used as a required or
    time-pressured effect, and fully neutralized by the reduced-motion
    rules below. */
 @keyframes atl-pulse {
@@ -391,7 +677,7 @@ li { margin-bottom: var(--space-2); }
   50% { transform: scale(1.15); opacity: 0.75; }
 }
 
-/* A single, brief (300ms) pop for score feedback — not a loop, not
+/* A single, brief (300ms) pop for score feedback â€” not a loop, not
    flashing, and fully neutralized by the reduced-motion rules below. */
 @keyframes atl-pop {
   0% { transform: scale(0.85); opacity: 0; }
@@ -423,7 +709,7 @@ li { margin-bottom: var(--space-2); }
    Used by Spot the Accessibility Bug's realistic mini-interfaces: an
    interactive, keyboard-focusable region with no visible button chrome,
    so the real rendered content (real small pale text, a real color-only
-   dot, a real crowded button) is what the player inspects — not a label
+   dot, a real crowded button) is what the player inspects â€” not a label
    describing the flaw in words. Focus is still fully visible. */
 .bug-hotspot {
   all: unset;
@@ -436,14 +722,14 @@ li { margin-bottom: var(--space-2); }
 .bug-hotspot:focus-visible {
   outline: var(--focus-ring);
   outline-offset: 2px;
-  border-radius: var(--radius-sm);
+  border-radius: var(--radius-8);
 }
 .bug-hotspot.is-marked-correct {
   outline: 2px solid var(--color-success);
   outline-offset: 2px;
 }
 .bug-hotspot.is-marked-incorrect {
-  outline: 2px solid var(--color-danger);
+  outline: 2px solid var(--color-error);
   outline-offset: 2px;
 }
 
@@ -454,15 +740,15 @@ li { margin-bottom: var(--space-2); }
   position: sticky;
   top: 0;
   z-index: 5;
-  background: var(--color-bg);
-  border-bottom: 1px solid var(--color-border);
-  padding-block: var(--space-3);
+  background: var(--color-canvas);
+  border-bottom: 1px solid var(--color-border-light);
+  padding-block: var(--space-12);
 }
 
 .mission-header__row {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--space-4);
+  gap: var(--space-16);
   justify-content: space-between;
   align-items: center;
 }
@@ -470,7 +756,7 @@ li { margin-bottom: var(--space-2); }
 .mission-header__stats {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--space-5);
+  gap: var(--space-24);
 }
 
 .mission-header__stat {
@@ -484,7 +770,7 @@ li { margin-bottom: var(--space-2); }
 .mission-header__stat strong {
   display: block;
   font-size: 1rem;
-  color: var(--color-text);
+  color: var(--color-text-body);
   text-transform: none;
   letter-spacing: normal;
   font-family: var(--font-body);
@@ -493,24 +779,24 @@ li { margin-bottom: var(--space-2); }
 /* Stage map ---------------------------------------------------------------- */
 .stage-map {
   display: flex;
-  gap: var(--space-3);
+  gap: var(--space-12);
   flex-wrap: wrap;
 }
 
 .stage-map__step {
   display: flex;
   align-items: center;
-  gap: var(--space-2);
+  gap: var(--space-8);
   font-size: 0.8rem;
-  padding: var(--space-2) var(--space-4);
-  border-radius: 999px;
-  border: 1px solid var(--color-border-strong);
-  background: var(--color-bg-raised);
+  padding: var(--space-8) var(--space-16);
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
 }
 
 .stage-map__step.is-current {
-  border-color: var(--color-teal-dark);
-  background: var(--color-teal-tint);
+  border-color: var(--color-primary);
+  background: var(--color-primary-tint);
   font-weight: 700;
 }
 
@@ -523,10 +809,10 @@ li { margin-bottom: var(--space-2); }
 .sticky-continue {
   position: sticky;
   bottom: 0;
-  background: var(--color-bg);
-  padding-block: var(--space-4);
-  border-top: 1px solid var(--color-border);
-  margin-top: var(--space-4);
+  background: var(--color-canvas);
+  padding-block: var(--space-16);
+  border-top: 1px solid var(--color-border-light);
+  margin-top: var(--space-16);
 }
 
 /* Themed target board ---------------------------------------------------------
@@ -536,7 +822,7 @@ li { margin-bottom: var(--space-2); }
 .target-board {
   display: flex;
   flex-direction: column;
-  gap: var(--space-4);
+  gap: var(--space-16);
   align-items: center;
   width: 100%;
 }
@@ -544,7 +830,7 @@ li { margin-bottom: var(--space-2); }
 .target-layout-row {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--space-4);
+  gap: var(--space-16);
   justify-content: center;
   width: 100%;
 }
@@ -552,7 +838,7 @@ li { margin-bottom: var(--space-2); }
 .target-layout-grid-cards {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(92px, 1fr));
-  gap: var(--space-4);
+  gap: var(--space-16);
   width: 100%;
   max-width: 520px;
 }
@@ -560,7 +846,7 @@ li { margin-bottom: var(--space-2); }
 .target-layout-list {
   display: flex;
   flex-direction: column;
-  gap: var(--space-2);
+  gap: var(--space-8);
   width: 100%;
   max-width: 420px;
 }
@@ -568,11 +854,11 @@ li { margin-bottom: var(--space-2); }
 .target-layout-dialog {
   display: flex;
   flex-direction: column;
-  gap: var(--space-4);
-  border: 1px solid var(--color-border-strong);
-  border-radius: var(--radius-lg);
-  padding: var(--space-5);
-  background: var(--color-bg-raised);
+  gap: var(--space-16);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-16);
+  padding: var(--space-24);
+  background: var(--color-surface);
   max-width: 440px;
   width: 100%;
 }
@@ -580,7 +866,7 @@ li { margin-bottom: var(--space-2); }
 .target-layout-dialog__actions {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--space-3);
+  gap: var(--space-12);
   justify-content: flex-end;
 }
 
@@ -588,11 +874,11 @@ li { margin-bottom: var(--space-2); }
   display: flex;
   justify-content: space-around;
   align-items: center;
-  gap: var(--space-2);
-  border: 1px solid var(--color-border-strong);
-  border-radius: 999px;
-  padding: var(--space-3) var(--space-5);
-  background: var(--color-bg-raised);
+  gap: var(--space-8);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-pill);
+  padding: var(--space-12) var(--space-24);
+  background: var(--color-surface);
   max-width: 400px;
   width: 100%;
 }
@@ -604,11 +890,11 @@ li { margin-bottom: var(--space-2); }
   justify-content: center;
   gap: 4px;
   border-radius: 10px;
-  border: 1px solid var(--color-border-strong);
-  background: var(--color-bg-raised);
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
   cursor: pointer;
   text-align: center;
-  padding: var(--space-2);
+  padding: var(--space-8);
 }
 
 .target-cell__icon {
@@ -622,16 +908,16 @@ li { margin-bottom: var(--space-2); }
 }
 
 .target-cell.is-scanned {
-  border: 3px solid var(--color-teal-dark);
+  border: 3px solid var(--color-primary);
 }
 
 .target-cell.is-marker {
-  outline: 2px solid var(--color-teal-dark);
+  outline: 2px solid var(--color-primary);
   outline-offset: 2px;
 }
 
 /* Game arena ------------------------------------------------------------------
-   The Accessibility Challenge's target area — one real target (plus decoys
+   The Accessibility Challenge's target area â€” one real target (plus decoys
    only in Color Vision mode, or five boxes in Switch Access) inside a
    fixed-size, position-relative arena. Ported to match the original
    prototype's mechanics: the arena filter and target parameters are what
@@ -640,16 +926,16 @@ li { margin-bottom: var(--space-2); }
   position: relative;
   width: 100%;
   height: 260px;
-  border-radius: var(--radius-lg);
-  border: 1px solid var(--color-border);
-  background: var(--color-bg-sunken);
+  border-radius: var(--radius-16);
+  border: 1px solid var(--color-border-light);
+  background: var(--color-surface-subtle);
   overflow: hidden;
   touch-action: manipulation;
 }
 
 /* Switch Access needs its own arena sizing. Five 44px-tall controls can
    wrap onto as many as five rows at very narrow widths (80-128px content,
-   320px viewports, 400% zoom) — five rows comfortably exceed the fixed
+   320px viewports, 400% zoom) â€” five rows comfortably exceed the fixed
    260px height every other mode uses. A fixed height plus overflow:hidden
    would silently clip whichever rows don't fit. This variant sizes to its
    wrapped content instead, keeping the original 260px only as a floor
@@ -695,9 +981,9 @@ li { margin-bottom: var(--space-2); }
   min-width: 40px;
   max-width: 56px;
   height: 44px;
-  border-radius: 6px;
-  border: 1px solid var(--color-border-strong);
-  background: var(--color-bg-raised);
+  border-radius: var(--radius-8);
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
   font-size: 0.75rem;
   font-weight: 600;
   cursor: pointer;
@@ -715,8 +1001,70 @@ li { margin-bottom: var(--space-2); }
   align-items: center;
   justify-content: center;
   font-weight: 700;
-  color: var(--color-text-muted);
+  /* The Figma "Paused State" token (#c09c56) only reaches ~2.4:1 against
+     the canvas background â€” too low for readable text (AA needs 4.5:1
+     for text). Using the high-contrast heading color here instead so the
+     word "Paused" stays legible; color is also never the only pause
+     signal â€” the arena also dims to 60% opacity while paused. */
+  color: var(--color-text-heading);
   pointer-events: none;
+}
+
+/* Round status bar --------------------------------------------------------------
+   Shared by both games. On wider screens every stat is shown inline (same
+   treatment this app has always used). On narrow screens the bar collapses
+   to the current stage plus one primary value, with anything else tucked
+   into a native, keyboard- and screen-reader-accessible <details> so the
+   bar never grows tall enough to crowd the game controls below it. */
+.round-status__full {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-16);
+  justify-content: space-between;
+  padding: var(--space-12) var(--space-24);
+}
+
+.round-status__compact {
+  display: none;
+}
+
+@media (max-width: 480px) {
+  .round-status__full {
+    display: none;
+  }
+  .round-status__compact {
+    display: block;
+    position: sticky;
+    top: 0;
+    z-index: 5;
+    padding: var(--space-12) var(--space-16);
+  }
+  .round-status__compact-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: var(--space-12);
+  }
+  .round-status__stage {
+    font-weight: 700;
+  }
+  .round-status__details {
+    margin-top: var(--space-8);
+  }
+  .round-status__details summary {
+    cursor: pointer;
+    font-size: 0.85rem;
+    color: var(--color-primary);
+    font-weight: 600;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+  }
+  .round-status__details-grid {
+    display: flex;
+    gap: var(--space-16);
+    padding-top: var(--space-8);
+  }
 }
 
 /* Compact result summary ("What this showed you") -----------------------------*/
@@ -724,7 +1072,7 @@ li { margin-bottom: var(--space-2); }
   margin: 0;
   display: flex;
   flex-direction: column;
-  gap: var(--space-3);
+  gap: var(--space-12);
 }
 
 .summary-list > div {
@@ -757,14 +1105,14 @@ li { margin-bottom: var(--space-2); }
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 28px;
-  height: 28px;
-  min-height: 28px;
+  width: 44px;
+  height: 44px;
+  min-height: 44px;
   padding: 0;
   border-radius: 50%;
-  border: 1px solid var(--color-border-strong);
-  background: var(--color-bg-raised);
-  color: var(--color-teal-dark);
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+  color: var(--color-primary);
   font-size: 0.9rem;
   font-weight: 700;
   cursor: pointer;
@@ -772,7 +1120,7 @@ li { margin-bottom: var(--space-2); }
 }
 
 .info-button:hover {
-  border-color: var(--color-teal-dark);
+  border-color: var(--color-primary);
 }
 
 .info-popover {
@@ -782,15 +1130,41 @@ li { margin-bottom: var(--space-2); }
   left: 0;
   width: 260px;
   max-width: 80vw;
-  background: var(--color-bg-raised);
-  border: 1px solid var(--color-border-strong);
-  border-radius: var(--radius-md);
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
-  padding: var(--space-4);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-12);
+  box-shadow: var(--shadow-elevated);
+  padding: var(--space-16);
   display: flex;
   flex-direction: column;
-  gap: var(--space-3);
+  gap: var(--space-12);
   font-size: 0.9rem;
+}
+
+/* At narrow widths, a popover anchored left:0 to a trigger near the right
+   edge of the screen would run past the viewport. The panel is instead
+   presented as a small centered, viewport-clamped dialog with a backdrop â€”
+   same content, same Escape/close/focus-return behavior, just positioned
+   so it can never overflow the screen. */
+.info-popover-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 25;
+  background: rgba(42, 40, 37, 0.4);
+}
+
+.info-popover--sheet {
+  position: fixed;
+  z-index: 30;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: calc(100vw - 32px);
+  max-width: 22rem;
+  max-height: calc(100vh - 32px);
+  overflow-y: auto;
+  border-radius: var(--radius-24);
+  box-shadow: var(--shadow-elevated);
 }
 
 /* Confirm-exit dialog ---------------------------------------------------------*/
@@ -802,16 +1176,17 @@ li { margin-bottom: var(--space-2); }
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: var(--space-5);
+  padding: var(--space-24);
 }
 
 .dialog-panel {
   max-width: 26rem;
   width: 100%;
+  box-shadow: var(--shadow-elevated);
 }
 
 /* Small screens --------------------------------------------------------------*/
 @media (max-width: 480px) {
-  .container { padding-inline: var(--space-4); }
-  .card { padding: var(--space-5); }
+  .container { padding-inline: var(--space-16); }
+  .card { padding: var(--space-24); }
 }
